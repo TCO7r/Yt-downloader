@@ -3,7 +3,21 @@ import os
 import threading
 import customtkinter as ctk
 from tkinter import filedialog, messagebox
-import webbrowser 
+import webbrowser
+
+import os
+import sys
+
+if getattr(sys, 'frozen', False):
+    # If the app is frozen (running as an .exe), get the directory it is running from
+    base_path = sys._MEIPASS
+else:
+    # Otherwise, use the current script directory
+    base_path = os.path.dirname(os.path.abspath(__file__))
+
+# Add FFmpeg to PATH
+os.environ['PATH'] = os.path.join(base_path, 'ffmpeg', 'bin') + os.pathsep + os.environ['PATH']
+
 
 # Function to handle media download using yt_dlp
 def download_media(url, format_option, selected_quality, output_path, progress_callback):
